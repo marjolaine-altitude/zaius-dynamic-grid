@@ -1,0 +1,173 @@
+{% assign sku_array = "" %}
+{% assign nbCol = column | plus: 0 %}
+{% assign product_count = 0 %}
+{% assign title_length  = 0 %} 
+{% assign max_char = 80 | divided_by: nbCol | round  %}
+{% assign nb_line = 0 %}
+{% assign td_heigh = 500 | divided_by: nbCol | round %}
+{% assign link_color = "#FF4A00" %}
+
+{% if is_tlh == true %}
+    {% assign link_color = "#EE3600" %}
+{% endif %}
+
+{% for product in products %}
+    {% assign title = product.name | split: '|-|' | first %}
+    {% if title.size > title_length %}
+        {% assign title_length = title.size %}      
+    {% endif %}
+{% endfor %}
+
+{% if show_product_name == true %}
+    {% assign nb_line = title_length | divided_by: max_char | plus: 2 %}
+{% endif %}
+
+{% if show_vendor == true %}
+    {% assign nb_line = nb_line | plus: 1 %}
+{% endif %}
+
+{% if show_price == true %}
+    {% assign nb_line = nb_line | plus: 1 %}
+{% endif %}
+
+{% if show_qty == true %}
+    {% assign nb_line = nb_line | plus: 1 %}
+{% endif %}
+
+{% assign title_height = nb_line | times: 20 %}
+
+<!--[if mso]>
+  <style type="text/css">
+    .product-border {
+      border: 0 !important;
+      padding: 0 !important
+    }
+  </style>
+<![endif]-->
+    
+{% for product in products %} 
+
+    <!-- Avoid product duplicates -->
+    {% unless sku_array contains product.sku  %}
+        {% assign sku_array = sku_array | append: product.sku %}
+        {% assign product_count = product_count | plus: 1 %}
+
+        {% assign outlook_row = product_count | modulo: nbCol %}
+        {% assign outlook_width = 600 | divided_by: nbCol | times: 0.65| round %}
+
+        {% assign qty = product.products_quantity | plus:0 %}
+        {% assign td_width = 100 | divided_by: nbCol | round %}
+        {% assign row_last = product_count | modulo: nbCol %}
+        {% if row_last == 0 %}
+            {% assign td_width = td_width | minus: 1 %}
+        {% endif %}
+        
+        {% assign product_name = product.name | split: '|-|' | first %}
+        {% assign product_url  = product.handle | prepend: 'https://www.altitude-sports.com/products/' %}
+        {% assign product_price = product.price | prepend: '$' %}
+        {% assign original_price = product.original_price | prepend: '$' %}
+        {% assign out_of_stock = "Out of stock" %}
+        {% capture ltd_qty %}Only {{ qty }} in stock{% endcapture %}
+
+        {% if customer.language == 'fr' or tags contains 'lang_fr' and customer.language != 'en' %}
+            {% assign product_name = product.name | split: '|-|' | last %}
+            {% assign product_url  = product.handle | prepend: 'https://fr.altitude-sports.com/products/' %}
+            {% assign product_price = product.price | append: '&thinsp;$' %}
+            {% assign original_price = product.original_price | append: '&thinsp;$' %}
+            {% assign out_of_stock = "Épuisé" %}
+            {% capture ltd_qty %}Plus que {{ qty }} en stock{% endcapture %}
+        {% endif %}
+
+        {% if forloop.index == 1 %}
+            <table style="align: center;">
+                <tr>
+                    <td class="product" style="text-align: center; padding-top: 20px; vertical-align: bottom" valign="bottom">
+        {% else %}
+            <!--[if mso]><td class="product" style="text-align: center; padding-top: 20px; vertical-align: bottom" valign="bottom"><![endif]-->
+        {% endif %}
+
+        <div style="width: {{ td_width }}%; display: inline-block; min-width: 180px;">
+            <table style="width: 100%;">
+                <tr>     
+                    <!-- Product image -->
+                {% if show_border == true %}
+                    <td class="product-image-border" style="text-align:center; height: {{ td_heigh }}px; padding: 0 15px;">
+                        <table width="100%">
+                            <tr>
+                                <!--[if mso]><td class="product-border" style="height:{{ td_heigh }}px; text-align: center"><![endif]-->
+                                <!--[if !mso]>-->
+                                <td class="product-border" style="border: 1px solid; height:{{ td_heigh | minus: 40 }}px; padding: 18px; text-align: center">
+                                <!--<![endif]-->
+                                    <a href="{{ product_url }}">
+                                        <div class="resize-height-image" height="{{ td_heigh | minus: 45 }}px" width="{{ outlook_width }}px" style="text-align:center;">
+                                            <img src="{{ product.image_url }}" alt="{{ product.brand }} {{ product_title }}" style="width:auto; height: auto; max-width: 85%; max-height: {{ td_heigh | minus: 45 }}px;" width="{{ outlook_width }}" />
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                {% else %}
+                    <td class="product-image" style="text-align:center; height: {{ td_heigh }}px; padding: 0 15px; vertical-align: bottom; <!--[if mso]>" height="{{ td_heigh | plus: 35 }}<![endif]-->">
+                        <a href="{{ product_url }}">
+                            <img src="{{ product.image_url }}" alt="{{ product.brand }} {{ product_title }}" style="width:auto; height: auto; max-width: 85%; max-height: {{ td_heigh | minus: 25 }}px;" width="{{ outlook_width }}" />
+                        </a>
+                    </td>
+                {% endif %}
+                </tr>
+
+                {% if show_vendor == true or show_product_name == true or show_price == true or show_qty == true %}
+                    <tr>
+                        <!-- Product infos -->
+                        <td style="padding: 15px 5px 0; font-family: sans-serif; font-size: 15px; height: {{ title_height }}px; line-height: 18px; text-align: center; vertical-align:top;">
+                            <a href="{{ product_url }}" style="color:#000;text-decoration:none;">
+                                
+                                {% if show_vendor == true %}
+                                    <div style="font-weight: bold; margin-bottom: 5px;">{{ product.brand }}</div>
+                                {% endif %}
+
+                                {% if show_product_name == true %}
+                                    <div>{{ product_name }}</div>
+                                {% endif %}
+
+                                <!-- Product price -->
+                                {% if show_price == true %}
+                                    {% if product_price < original_price %}
+                                        <div>
+                                            <span style="color: #4A4A4A; text-decoration: line-through;">{{ original_price }}</span> 
+                                            <strong style="color:{{ link_color }};"> {{ product_price }}</strong>
+                                        </div>
+                                    {% else %}
+                                        <div style="font-weight: bold;">{{ product_price }}</div>
+                                    {% endif %}
+                                {% endif %}
+
+                                <!-- Product qty -->
+                                {% if show_qty == true %}
+                                    <div style="color: {{ link_color }}; font-weight: bold;">
+                                        {% if qty == 0 %}
+                                            {{ out_of_stock }}
+                                        {% elsif qty <= 4 %}
+                                            {{ ltd_qty }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+        {% if forloop.last == true %}
+                    </td>
+                </tr>
+            </table>
+        {% else %}
+            <!--[if mso]></td><![endif]-->
+            {% if outlook_row == 0  %}
+                <!--[if mso]></tr><tr><![endif]-->
+            {% endif %}
+        {% endif %}
+
+    {% endunless %}
+{% endfor %}
