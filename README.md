@@ -1,6 +1,6 @@
 # Zaius Dynamic Grid
 
-Use this template to build in [Zaius](https://app.zaius.com/) a custom grid of products for Altitude Sports and The Last Hunt newsletter. Given a list of skus, the dynamic grid will automatically populate a newsletter section with products informations. 
+Use this template to build in [Zaius](https://app.zaius.com/) a custom grid of products for AS and TLH newsletter. Given a list of skus, the dynamic grid will automatically populate a newsletter section with products informations. 
 
 ## Getting Started
 
