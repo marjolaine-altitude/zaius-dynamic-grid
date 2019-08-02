@@ -4,7 +4,7 @@ Use this template to build in [Zaius](https://app.zaius.com/) a custom grid of p
 
 ## Getting Started
 
-The [Dynamic Grid](dynamic-grid.liquid) file contains your HTML template. You don't need to modify it. Use it as it is in a raw HTML section of Zaius. The [scripting](dynamic-grid-scripting.liquid) implement the logic of the dynamic grid. Use it in the scripting section of your raw HTML block in Zaius. If the customer is french, the template will be automatically translated.
+You will need to use [dynamic-grid.liquid](dynamic-grid.liquid) and [dynamic-grid-scripting.liquid](dynamic-grid-scripting.liquid). The [Dynamic Grid](dynamic-grid.liquid) file contains your HTML template. You don't need to modify it. Use it as it is in a raw HTML section of Zaius. The [scripting](dynamic-grid-scripting.liquid) implement the logic of the dynamic grid. Use it in the scripting section of your raw HTML block in Zaius. If the customer is french, the template will be automatically translated.
 
 ### Using the scripting
 
