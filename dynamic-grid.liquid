@@ -5,14 +5,14 @@
 {% assign max_char = 80 | divided_by: nbCol | round  %}
 {% assign nb_line = 0 %}
 {% assign td_heigh = 500 | divided_by: nbCol | round %}
-{% assign link_color = "#FF4A00" %}
+{% assign link_color = "#d64615" %}
 
 {% if is_tlh == true %}
     {% assign link_color = "#EE3600" %}
 {% endif %}
 
 {% for product in products %}
-    {% assign title = product.name | split: '|-|' | first %}
+    {% assign title = product.name | split: "|-|" | first %}
     {% if title.size > title_length %}
         {% assign title_length = title.size %}      
     {% endif %}
@@ -62,18 +62,27 @@
             {% assign td_width = td_width | minus: 1 %}
         {% endif %}
         
-        {% assign product_name = product.name | split: '|-|' | first %}
-        {% assign product_url  = product.handle | prepend: 'https://www.altitude-sports.com/products/' %}
-        {% assign product_price = product.price | prepend: '$' %}
-        {% assign original_price = product.original_price | prepend: '$' %}
+        {% assign product_name = product.name | split: "|-|" | first %}
+        {% if is_tlh == true %}
+            {% assign product_url  = product.handle | prepend: "https://www.thelasthunt.com/products/" %}
+        {% else %}
+            {% assign product_url  = product.handle | prepend: "https://www.altitude-sports.com/products/" %}
+        {% endif %}
+        
+        {% assign product_price = product.price | prepend: "$" %}
+        {% assign original_price = product.original_price | prepend: "$" %}
         {% assign out_of_stock = "Out of stock" %}
         {% capture ltd_qty %}Only {{ qty }} in stock{% endcapture %}
 
-        {% if customer.language == 'fr' or tags contains 'lang_fr' and customer.language != 'en' %}
-            {% assign product_name = product.name | split: '|-|' | last %}
-            {% assign product_url  = product.handle | prepend: 'https://fr.altitude-sports.com/products/' %}
-            {% assign product_price = product.price | append: '&thinsp;$' %}
-            {% assign original_price = product.original_price | append: '&thinsp;$' %}
+        {% if customer.language == "fr" or tags contains "lang_fr" and customer.language != "en" %}
+            {% assign product_name = product.name | split: "|-|" | last %}
+            {% if is_tlh == true %}
+                {% assign product_url  = product.handle | prepend: "https://www.ladernierechasse.com/products/" %}
+            {% else %}
+                {% assign product_url  = product.handle | prepend: "https://fr.altitude-sports.com/products/" %}
+            {% endif %}
+            {% assign product_price = product.price | append: "&thinsp;$" %}
+            {% assign original_price = product.original_price | append: "&thinsp;$" %}
             {% assign out_of_stock = "Épuisé" %}
             {% capture ltd_qty %}Plus que {{ qty }} en stock{% endcapture %}
         {% endif %}

@@ -16,7 +16,7 @@ Option | Type | Description
 ------ | ---- | -----------
 column | number | Defines how much product in a row for desktop clients. On mobile or smaller devices, it is fixed to 2 products in a row.
 show_border | boolean | Set the value to `true` to show a border around the product image.
-is_tlh | boolean | If `true`, it will change the orange color value to match The Last Hunt's orange color.
+is_tlh | boolean | If `true`, it will change the link color and products URL to match TLH.
 show_vendor | boolean | Set to `true` to display the product vendor.
 show_product_name | boolean | Set to `true` to display the product name.
 show_price | boolean | Set to `true` to display the product price. If the product is currently on sale, the original price will be ~~strikethrough~~  and the discounted price will appear next in orange.
