@@ -42,6 +42,9 @@
       border: 0 !important;
       padding: 0 !important
     }
+    .resize-height-image img {
+        display: inline;
+    }
   </style>
 <![endif]-->
     
@@ -108,8 +111,8 @@
                                 <td class="product-border" style="border: 1px solid; height:{{ td_heigh | minus: 40 }}px; padding: 18px; text-align: center">
                                 <!--<![endif]-->
                                     <a href="{{ product_url }}">
-                                        <div class="resize-height-image" height="{{ td_heigh | minus: 45 }}px" width="{{ outlook_width }}px" style="text-align:center;">
-                                            <img src="{{ product.image_url }}" alt="{{ product.brand }} {{ product_title }}" style="width:auto; height: auto; max-width: 85%; max-height: {{ td_heigh | minus: 45 }}px;" width="{{ outlook_width }}" />
+                                        <div class="resize-height-image" height="{{ td_heigh | minus: 45 }}px" width="{{ outlook_width }}px" style="background-image:url({{ product.image_url }}); background-size: contain; background-position: center; background-repeat: no-repeat; text-align:center; height: {{ td_heigh | minus: 45 }}px;">
+                                            <img src="{{ product.image_url }}" alt="{{ product.brand }} {{ product_title }}" style="display: none;width:auto; height: auto; max-width: 85%; max-height: {{ td_heigh | minus: 45 }}px;" width="{{ outlook_width }}" />
                                         </div>
                                     </a>
                                 </td>
