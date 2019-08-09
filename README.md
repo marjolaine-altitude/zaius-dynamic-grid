@@ -21,5 +21,7 @@ show_vendor | boolean | Set to `true` to display the product vendor.
 show_product_name | boolean | Set to `true` to display the product name.
 show_price | boolean | Set to `true` to display the product price. If the product is currently on sale, the original price will be ~~strikethrough~~  and the discounted price will appear next in orange.
 show_qty | boolean | Set the value to `true` to display a stock alert message. If the product quantity is 3 or less, the messge `Only X in stock` (`Plus que X en stock`). If the product is out of stock, it will show `Out of stock` (`Épuisé`).   
+custom_order | boolean |  If `true` it will display product in the order declared in `sku_order_array`.   
+sku_order_array | array | Place skus in the order you want the product to show on you newsletter, separated by a comma.   
 
 ![Dynamic grid example](dynamic-grid-example.png)

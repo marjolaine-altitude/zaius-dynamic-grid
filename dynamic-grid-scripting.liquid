@@ -7,18 +7,22 @@
 {% assign show_price = false %}
 {% assign show_qty = false %}
 
+{% assign custom_order = true %}
+{% assign sku_order_array = '410033396263,
+                             410034335126,
+                             410034657602,
+                             410036189372,
+                             410036244925,
+                             410030156026'
+%}
+
 {% assign products = lookup.products(
     brand,
-    category_1,
-    category_3,
     handle,
     image_url,
     name,
-    new_date,
-    new_discount,
     original_price,
     price,
-    product_id,
     products_quantity,
     sku
 ).where(
