@@ -1,13 +1,13 @@
-{% assign custom_order_array = sku_order_array | strip | split: "," %}
-{% assign sku_array = "" %}
+{% assign custom_order_array = order_array | strip | split: "," %}
+{% assign id_array = "" %}
 {% assign index_order = "" %}
 
 {% if custom_order == true %}
     {% for item in custom_order_array %}
         {% for product in products %}
-            {% if item contains product.sku %}
-                {% unless sku_array contains product.sku %}
-                    {% assign sku_array = sku_array | append: product.sku %}
+            {% if item contains product.product_id %}
+                {% unless id_array contains product.product_id %}
+                    {% assign id_array = id_array | append: product.product_id %}
                     {% assign index_order = index_order | append: forloop.index0 | append: "," %}
                 {% endunless %}
             {% endif %}
@@ -15,8 +15,8 @@
     {% endfor %}
 {% else %}
     {% for product in products %}
-        {% unless sku_array contains product.sku %}
-            {% assign sku_array = sku_array | append: product.sku %}
+        {% unless id_array contains product.product_id %}
+            {% assign id_array = id_array | append: product.product_id %}
             {% assign index_order = index_order | append: forloop.index0 | append: "," %}
         {% endunless %}
     {% endfor %}

@@ -1,5 +1,5 @@
-{% assign column = 3 %}
-{% assign show_border = true %}
+{% assign column = 2 %}
+{% assign show_border = false %}
 {% assign is_tlh = false %}
 
 {% assign show_vendor = true %}
@@ -8,12 +8,12 @@
 {% assign show_qty = false %}
 
 {% assign custom_order = true %}
-{% assign sku_order_array = '410033396263,
-                             410034335126,
-                             410034657602,
-                             410036189372,
-                             410036244925,
-                             410030156026'
+{% assign order_array = '1406111481959,
+                         10046230022,
+                         778111549543,
+                         10045583558,
+                         3962877837415,
+                         1954106474599,'
 %}
 
 {% assign products = lookup.products(
@@ -23,13 +23,13 @@
     name,
     original_price,
     price,
-    products_quantity,
-    sku
+    product_id,
+    products_quantity
 ).where(
-       sku = '410033396263'
-    OR sku = '410034335126'
-    OR sku = '410034657602'
-    OR sku = '410036189372'
-    OR sku = '410036244925'
-    OR sku = '410030156026'
+       product_id = '10046230022'
+    OR product_id = '778111549543'
+    OR product_id = '10045583558'
+    OR product_id = '3962877837415'
+    OR product_id = '1954106474599'
+    OR product_id = '1406111481959'
 ) %}
