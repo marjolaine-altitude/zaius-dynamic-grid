@@ -15,6 +15,8 @@ Here is the detailed list of settings that you can modify in the scripting secti
 Option | Type | Description
 ------ | ---- | -----------
 column | number | Defines how much product in a row for desktop clients. On mobile or smaller devices, it is fixed to 2 products in a row.
+mobile_2_columns | boolean | `true` will show 2 product per row. False will show 1 product per row.
+product_img_height | number | Enter a number to set the height of image container.
 show_border | boolean | Set the value to `true` to show a border around the product image.
 is_tlh | boolean | If `true`, it will change the link color and products URL to match TLH.
 show_vendor | boolean | Set to `true` to display the product vendor.

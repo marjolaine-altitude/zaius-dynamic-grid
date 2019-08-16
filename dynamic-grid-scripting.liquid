@@ -1,4 +1,6 @@
-{% assign column = 2 %}
+{% assign column = 3 %}  
+{% assign mobile_2_columns = false %}
+{% assign product_img_height = 300 %}
 {% assign show_border = false %}
 {% assign is_tlh = false %}
 
@@ -7,7 +9,7 @@
 {% assign show_price = false %}
 {% assign show_qty = false %}
 
-{% assign custom_order = true %}
+{% assign custom_order = false %}
 {% assign order_array = '1406111481959,
                          10046230022,
                          778111549543,
@@ -26,10 +28,10 @@
     product_id,
     products_quantity
 ).where(
-       product_id = '10046230022'
-    OR product_id = '778111549543'
-    OR product_id = '10045583558'
-    OR product_id = '3962877837415'
-    OR product_id = '1954106474599'
-    OR product_id = '1406111481959'
+       product_id = '23500931465274'
+    OR product_id = '23459358900282'
+    OR product_id = '23454439473210'
+    OR product_id = '22348032802874'
+    OR product_id = '23500444860474'
+    OR product_id = '23450766770234'
 ) %}
