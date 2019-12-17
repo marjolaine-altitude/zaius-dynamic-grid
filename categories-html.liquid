@@ -95,6 +95,9 @@
     .resize-height-image img {
         display: inline;
     }
+    .product-image {
+        height: {{ img_height | plus: 35 }}px !important;
+    }
   </style>
 <![endif]-->
 {% for index in index_order %}
@@ -102,6 +105,8 @@
     {% assign j = forloop.index0 %}
     {% assign product = products[i] %}
     {% assign product_count = product_count | plus: 1 %}
+    {% assign image = product.image_url | split: '.jpg' %}
+    {% assign new_image = image[0] | append: '_x' | append: img_height | append: '.jpg' | append: image[1] %}
 
     {% if lang == "fr" %}
         {% assign cat_url = cat_links[j] | split: "|-|" | last | prepend: base_url %}
@@ -120,7 +125,7 @@
     {% if forloop.index == 1 %}
         <table class="product-container" width="100%" align="center">
             <tr>
-                <td class="product" style="text-align: center; padding-top: 20px; vertical-align: bottom" valign="bottom">
+                <td class="product" style="text-align: center; padding-top: 20px; vertical-align: bottom;" valign="bottom">
     {% else %}
         <!--[if mso]><td class="product" style="text-align: center; padding-top: 20px; vertical-align: bottom" valign="bottom"><![endif]-->
     {% endif %}
@@ -138,8 +143,8 @@
                             <td class="product-border" style="border: 1px solid; height:{{ img_height | minus: 40 }}px; padding: 18px; text-align: center">
                             <!--<![endif]-->
                                 <a href="{{ cat_url }}">
-                                    <div class="resize-height-image" height="{{ img_height | minus: 45 }}px" width="{{ outlook_width }}px" style="background-image:url({{ product.image_url }}); background-size: contain; background-position: center; background-repeat: no-repeat; text-align:center; height: {{ img_height | minus: 45 }}px;">
-                                        <img src="{{ product.image_url }}" alt="{{ cat_names[j] }}" style="display: none;width:auto; height: auto; max-width: 85%; max-height: {{ img_height | minus: 45 }}px;" width="{{ outlook_width }}" />
+                                    <div class="resize-height-image" height="{{ img_height | minus: 45 }}px" width="{{ outlook_width }}px" style="background-image:url({{ new_image }}); background-size: contain; background-position: center; background-repeat: no-repeat; text-align:center; height: {{ img_height | minus: 45 }}px;">
+                                        <img src="{{ new_image }}" alt="{{ cat_names[j] }}" style="display: none;width:auto; height: auto; max-width: 85%; max-height: {{ img_height | minus: 45 }}px;" width="{{ outlook_width }}" />
                                     </div>
                                 </a>
                             </td>
@@ -147,9 +152,9 @@
                     </table>
                 </td>
             {% else %}
-                <td class="product-image" style="text-align:center; height: {{ img_height }}px; padding: 0 15px; vertical-align: bottom; <!--[if mso]>" height="{{ img_height | plus: 35 }}<![endif]-->">
+                <td class="product-image" valign="bottom" align="center" style="padding: 0; text-align:center; line-height: 1px; vertical-align: bottom;">
                     <a href="{{ cat_url }}">
-                        <img src="{{ product.image_url }}" alt="{{ cat_names[j] }}" style="width:auto; height: auto; max-width: 85%; max-height: {{ img_height | minus: 25 }}px;" width="{{ outlook_width }}" />
+                        <img src="{{ new_image }}" alt="{{ cat_names[j] }}" style="display:block; margin: 0 auto;width:auto; height: auto; max-width: 85%; max-height: {{ img_height | minus: 25 }}px;" width="{{ outlook_width }}" />
                     </a>
                 </td>
             {% endif %}
