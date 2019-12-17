@@ -27,3 +27,7 @@ custom_order | boolean |  If `true` it will display product in the order declare
 order_array | array | Place a list of product_id, comma separated, in the order you want the product to show on you newsletter.   
 
 ![Dynamic grid example](dynamic-grid-example.png)
+
+# Dyamic grid for categories
+
+Use the following template [categories-html_min.liquid](categories-html_min.liquid) for categories. You can use [categories-scripting.liquid](categories-scripting.liquid) for scripting or [this google sheets tool](https://docs.google.com/spreadsheets/d/1ie4CJOGeQxL05LvbVbi-lggoinFvIjBMyl2mrFNdYHg/edit?usp=sharing) to build a new scripting.
